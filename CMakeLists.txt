@@ -18,6 +18,17 @@ if(POLICY CMP0042)
 	cmake_policy(SET CMP0042 NEW)
 endif()
 
+
+###############
+# ASI default settings
+list(APPEND CMAKE_MODULE_PATH "$ENV{ASI}/cmake/Modules")
+include(asv_cmake_defaults)
+asv_cmake_defaults( )
+set(CMAKE_INSTALL_PREFIX ${ASV_3RDPARTY}
+  CACHE PATH "Base directory for the installation" FORCE)
+###############
+
+
 include(CheckCXXCompilerFlag)
 
 
@@ -280,6 +291,7 @@ set(_INSTALL_DESTINATIONS
 ### Library
 ###
 add_library(yaml-cpp ${library_sources})
+install_static_pdb(yaml-cpp) # ASV
 set_target_properties(yaml-cpp PROPERTIES
   COMPILE_FLAGS "${yaml_c_flags} ${yaml_cxx_flags}"
 )
@@ -300,7 +312,7 @@ if(MSVC)
 	if(NOT BUILD_SHARED_LIBS)
 		# correct library names
 		set_target_properties(yaml-cpp PROPERTIES
-			DEBUG_POSTFIX "${LIB_TARGET_SUFFIX}d"
+			DEBUG_POSTFIX "${LIB_TARGET_SUFFIX}_d"
 			RELEASE_POSTFIX "${LIB_TARGET_SUFFIX}"
 			MINSIZEREL_POSTFIX "${LIB_TARGET_SUFFIX}"
 			RELWITHDEBINFO_POSTFIX "${LIB_TARGET_SUFFIX}"
