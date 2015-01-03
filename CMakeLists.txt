@@ -250,7 +250,7 @@ if(MSVC)
 	set(LABEL_SUFFIX "${LABEL_SUFFIX} ${LIB_RT_SUFFIX}")
 
 	# b) Change prefix for static libraries
-	set(CMAKE_STATIC_LIBRARY_PREFIX "lib")	# to distinguish static libraries from DLL import libs
+	# ASV set(CMAKE_STATIC_LIBRARY_PREFIX "lib")	# to distinguish static libraries from DLL import libs
 
 	# c) Correct suffixes for static libraries
 	if(NOT BUILD_SHARED_LIBS)
