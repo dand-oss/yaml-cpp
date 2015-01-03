@@ -219,7 +219,7 @@ if(MSVC)
 	#    plus set lib suffix for later use and project label accordingly
 	# see http://msdn.microsoft.com/en-us/library/aa278396(v=VS.60).aspx
 	#     http://msdn.microsoft.com/en-us/library/2kzt1wy3(v=VS.71).aspx
-	set(LIB_RT_SUFFIX "md")	# CMake defaults to /MD for MSVC
+	# nope set(LIB_RT_SUFFIX "md")	# CMake defaults to /MD for MSVC
 	set(LIB_RT_OPTION "/MD")
 	#
 	if(NOT MSVC_SHARED_RT)	# User wants to have static runtime libraries (/MT, /ML)
