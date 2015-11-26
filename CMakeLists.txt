@@ -134,7 +134,9 @@ endif()
 include_directories(${YAML_CPP_SOURCE_DIR}/src)
 include_directories(${YAML_CPP_SOURCE_DIR}/include)
 
-
+Set(Boost_ADDITIONAL_VERSIONS "1.60" "1.59")
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
 ###
 ### General compilation settings
