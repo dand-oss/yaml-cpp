@@ -134,6 +134,10 @@ endif()
 include_directories(${YAML_CPP_SOURCE_DIR}/src)
 include_directories(${YAML_CPP_SOURCE_DIR}/include)
 
+if(NOT BOOST_ROOT)
+  set(BOOST_ROOT $ENV{BOOST_ROOT} CACHE PATH "Boost Root Directory")
+endif(NOT BOOST_ROOT)
+
 Set(Boost_ADDITIONAL_VERSIONS "1.60" "1.59")
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
