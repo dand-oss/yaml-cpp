@@ -232,6 +232,7 @@ if(MSVC)
 	#     http://msdn.microsoft.com/en-us/library/2kzt1wy3(v=VS.71).aspx
 	# nope set(LIB_RT_SUFFIX "md")	# CMake defaults to /MD for MSVC
 	set(LIB_RT_OPTION "/MD")
+	ADD_DEFINITIONS(/bigobj)
 	#
 	if(NOT MSVC_SHARED_RT)	# User wants to have static runtime libraries (/MT, /ML)
 		if(MSVC_STHREADED_RT)	# User wants to have old single-threaded static runtime libraries
