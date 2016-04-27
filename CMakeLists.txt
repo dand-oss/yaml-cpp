@@ -25,8 +25,6 @@ project(yaml CXX)
 list(APPEND CMAKE_MODULE_PATH "$ENV{ASI}/cmake/Modules")
 include(asv_cmake_defaults)
 asv_cmake_defaults( )
-set(CMAKE_INSTALL_PREFIX ${ASV_3RDPARTY}
-  CACHE PATH "Base directory for the installation" FORCE)
 ###############
 
 include(CheckCXXCompilerFlag)
@@ -168,9 +166,6 @@ endif()
 if(WIN32)
 	if(BUILD_SHARED_LIBS)
 		add_definitions(-D${PROJECT_NAME}_DLL)	# use or build Windows DLL
-	endif()
-	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		set(CMAKE_INSTALL_PREFIX "C:/")
 	endif()
 endif()
 
