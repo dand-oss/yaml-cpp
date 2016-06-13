@@ -138,7 +138,7 @@ if(NOT BOOST_ROOT)
   set(BOOST_ROOT $ENV{BOOST_ROOT} CACHE PATH "Boost Root Directory")
 endif(NOT BOOST_ROOT)
 
-Set(Boost_ADDITIONAL_VERSIONS "1.60" "1.59")
+Set(Boost_ADDITIONAL_VERSIONS "1.61" "1.60" "1.59")
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
