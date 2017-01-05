@@ -134,11 +134,19 @@ endif()
 include_directories(${YAML_CPP_SOURCE_DIR}/src)
 include_directories(${YAML_CPP_SOURCE_DIR}/include)
 
+Set(Boost_DEBUG ON)
 if(NOT BOOST_ROOT)
   set(BOOST_ROOT $ENV{BOOST_ROOT} CACHE PATH "Boost Root Directory")
 endif(NOT BOOST_ROOT)
+set(Boost_NO_SYSTEM_PATHS ON)
+set(Boost_USE_MULTITHREADED ON)
+Set(Boost_ADDITIONAL_VERSIONS "1.61" "1.60")
+if(UNIX)
+   # this platform gets confused without hardcoded path to a version
+   Set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_61)
+   Set(Boost_LIBRARY_DIR ${BOOST_ROOT}/lib)
+endif(UNIX)
 
-Set(Boost_ADDITIONAL_VERSIONS "1.61" "1.60" "1.59")
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
