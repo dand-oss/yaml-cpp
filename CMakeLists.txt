@@ -140,10 +140,10 @@ if(NOT BOOST_ROOT)
 endif(NOT BOOST_ROOT)
 set(Boost_NO_SYSTEM_PATHS ON)
 set(Boost_USE_MULTITHREADED ON)
-Set(Boost_ADDITIONAL_VERSIONS "1.61" "1.60")
+Set(Boost_ADDITIONAL_VERSIONS "1.63" "1.61")
 if(UNIX)
    # this platform gets confused without hardcoded path to a version
-   Set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_61)
+   Set(Boost_INCLUDE_DIR ${BOOST_ROOT}/include/boost-1_63)
    Set(Boost_LIBRARY_DIR ${BOOST_ROOT}/lib)
 endif(UNIX)
 
