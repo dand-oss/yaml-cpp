@@ -36,6 +36,10 @@ set(yaml-cpp-label-postfix "static")
 if (YAML_BUILD_SHARED_LIBS)
   set(yaml-cpp-type SHARED)
   set(yaml-cpp-label-postfix "shared")
+  # For making shared libraries
+  if(UNIX)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+  endif(UNIX)
 endif()
 
 set(build-shared $<BOOL:${YAML_BUILD_SHARED_LIBS}>)
