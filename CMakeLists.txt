@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.15..4.3)
 
 project(YAML_CPP VERSION 0.9.0 LANGUAGES CXX)
 
+###############
+# ASI default settings
+list(APPEND CMAKE_MODULE_PATH "$ENV{ASV_CMAKE}")
+include(asv_cmake_defaults)
+asv_cmake_defaults( )
+###############
+
 set(YAML_CPP_MAIN_PROJECT OFF)
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
   set(YAML_CPP_MAIN_PROJECT ON)
