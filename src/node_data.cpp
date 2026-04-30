@@ -189,8 +189,11 @@ void node_data::push_back(node& node,
   m_sequence.push_back(&node);
 }
 
-void node_data::insert(node& key, node& value,
-                       const shared_memory_holder& pMemory) {
+void node_data::insert(
+    node& key,
+    node& value,
+    const shared_memory_holder& pMemory,
+    DuplicateKeyPolicy duplicateKeyPolicy) {
   switch (m_type) {
     case NodeType::Map:
       break;
@@ -203,7 +206,7 @@ void node_data::insert(node& key, node& value,
       throw BadSubscript(m_mark, key);
   }
 
-  insert_map_pair(key, value);
+  insert_map_pair(key, value, false, duplicateKeyPolicy);
 }
 
 // indexing
@@ -279,11 +282,27 @@ void node_data::reset_map() {
   m_undefinedPairs.clear();
 }
 
-void node_data::insert_map_pair(node& key, node& value, bool force) {
-  if (!force && !key.scalar().empty())
-    for (const auto& mapEntry : m_map)
-      if (mapEntry.first->scalar() == key.scalar())
-        throw NonUniqueMapKey(m_mark, key);
+void node_data::insert_map_pair(
+    node& key,
+    node& value,
+    bool force,
+    DuplicateKeyPolicy duplicateKeyPolicy) {
+  if (!force && !key.scalar().empty()) {
+    for (auto it = m_map.begin(); it != m_map.end(); ++it) {
+      if (it->first->scalar() == key.scalar()) {
+        switch (duplicateKeyPolicy) {
+          case DuplicateKeyPolicy::Throw:
+            throw NonUniqueMapKey(m_mark, key);
+          case DuplicateKeyPolicy::KeepFirst:
+            return;
+          case DuplicateKeyPolicy::KeepLast:
+            m_map.erase(it);
+            break;
+        }
+        break;
+      }
+    }
+  }
 
   m_map.emplace_back(&key, &value);
 
