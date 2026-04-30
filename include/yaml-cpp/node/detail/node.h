@@ -116,8 +116,12 @@ class node {
     input.add_dependency(*this);
     m_index = m_amount.fetch_add(1);
   }
-  void insert(node& key, node& value, shared_memory_holder pMemory) {
-    m_pRef->insert(key, value, pMemory);
+  void insert(
+      node& key,
+      node& value,
+      shared_memory_holder pMemory,
+      DuplicateKeyPolicy duplicateKeyPolicy = DuplicateKeyPolicy::Throw) {
+    m_pRef->insert(key, value, pMemory, duplicateKeyPolicy);
     key.add_dependency(*this);
     value.add_dependency(*this);
   }

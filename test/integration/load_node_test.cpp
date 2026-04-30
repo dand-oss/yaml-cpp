@@ -465,8 +465,21 @@ TEST(LoadNodeTest, IncorrectSeqEnd) {
   EXPECT_THROW(Load("[foo]_bar"), ParserException);
 }
 
-TEST(LoadNodeTest, NonUniqueMapKey) {
-  EXPECT_THROW(Load("{a: A, b: B, a: A}"), NonUniqueMapKey);
+TEST(LoadNodeTest, DuplicateMapKeyDefaultsToKeepLast) {
+  Node node = Load("{a: A, b: B, a: C}");
+  EXPECT_EQ("C", node["a"].as<std::string>());
+  EXPECT_EQ(2, node.size());
+}
+
+TEST(LoadNodeTest, DuplicateMapKeyCanKeepFirst) {
+  Node node = Load("{a: A, b: B, a: C}", DuplicateKeyPolicy::KeepFirst);
+  EXPECT_EQ("A", node["a"].as<std::string>());
+  EXPECT_EQ(2, node.size());
+}
+
+TEST(LoadNodeTest, DuplicateMapKeyCanThrow) {
+  EXPECT_THROW(Load("{a: A, b: B, a: C}", DuplicateKeyPolicy::Throw),
+               NonUniqueMapKey);
 }
 
 }  // namespace

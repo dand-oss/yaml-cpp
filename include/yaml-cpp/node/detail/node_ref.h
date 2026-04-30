@@ -54,8 +54,12 @@ class node_ref {
   void push_back(node& node, shared_memory_holder pMemory) {
     m_pData->push_back(node, pMemory);
   }
-  void insert(node& key, node& value, shared_memory_holder pMemory) {
-    m_pData->insert(key, value, pMemory);
+  void insert(
+      node& key,
+      node& value,
+      shared_memory_holder pMemory,
+      DuplicateKeyPolicy duplicateKeyPolicy = DuplicateKeyPolicy::Throw) {
+    m_pData->insert(key, value, pMemory, duplicateKeyPolicy);
   }
 
   // indexing

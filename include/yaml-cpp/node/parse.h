@@ -16,12 +16,21 @@
 namespace YAML {
 class Node;
 
+enum class DuplicateKeyPolicy {
+  KeepLast,
+  KeepFirst,
+  Throw,
+};
+
 /**
  * Loads the input string as a single YAML document.
  *
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API Node Load(const std::string& input);
+YAML_CPP_API Node Load(
+    const std::string& input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input string as a single YAML document.
@@ -29,6 +38,9 @@ YAML_CPP_API Node Load(const std::string& input);
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API Node Load(const char* input);
+YAML_CPP_API Node Load(
+    const char* input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input stream as a single YAML document.
@@ -36,6 +48,9 @@ YAML_CPP_API Node Load(const char* input);
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API Node Load(std::istream& input);
+YAML_CPP_API Node Load(
+    std::istream& input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input file as a single YAML document.
@@ -44,6 +59,9 @@ YAML_CPP_API Node Load(std::istream& input);
  * @throws {@link BadFile} if the file cannot be loaded.
  */
 YAML_CPP_API Node LoadFile(const std::string& filename);
+YAML_CPP_API Node LoadFile(
+    const std::string& filename,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input string as a list of YAML documents.
@@ -51,6 +69,9 @@ YAML_CPP_API Node LoadFile(const std::string& filename);
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API std::vector<Node> LoadAll(const std::string& input);
+YAML_CPP_API std::vector<Node> LoadAll(
+    const std::string& input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input string as a list of YAML documents.
@@ -58,6 +79,9 @@ YAML_CPP_API std::vector<Node> LoadAll(const std::string& input);
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API std::vector<Node> LoadAll(const char* input);
+YAML_CPP_API std::vector<Node> LoadAll(
+    const char* input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input stream as a list of YAML documents.
@@ -65,6 +89,9 @@ YAML_CPP_API std::vector<Node> LoadAll(const char* input);
  * @throws {@link ParserException} if it is malformed.
  */
 YAML_CPP_API std::vector<Node> LoadAll(std::istream& input);
+YAML_CPP_API std::vector<Node> LoadAll(
+    std::istream& input,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 
 /**
  * Loads the input file as a list of YAML documents.
@@ -73,6 +100,9 @@ YAML_CPP_API std::vector<Node> LoadAll(std::istream& input);
  * @throws {@link BadFile} if the file cannot be loaded.
  */
 YAML_CPP_API std::vector<Node> LoadAllFromFile(const std::string& filename);
+YAML_CPP_API std::vector<Node> LoadAllFromFile(
+    const std::string& filename,
+    DuplicateKeyPolicy duplicateKeyPolicy);
 }  // namespace YAML
 
 #endif  // VALUE_PARSE_H_62B23520_7C8E_11DE_8A39_0800200C9A66

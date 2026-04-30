@@ -9,13 +9,14 @@
 namespace YAML {
 struct Mark;
 
-NodeBuilder::NodeBuilder()
+NodeBuilder::NodeBuilder(DuplicateKeyPolicy duplicateKeyPolicy)
     : m_pMemory(std::make_shared<detail::memory_holder>()),
       m_pRoot(nullptr),
       m_stack{},
       m_anchors{},
       m_keys{},
-      m_mapDepth(0) {
+      m_mapDepth(0),
+      m_duplicateKeyPolicy(duplicateKeyPolicy) {
   m_anchors.push_back(nullptr);  // since the anchors start at 1
 }
 
@@ -114,7 +115,7 @@ void NodeBuilder::Pop() {
     assert(!m_keys.empty());
     PushedKey& key = m_keys.back();
     if (key.second) {
-      collection.insert(*key.first, node, m_pMemory);
+      collection.insert(*key.first, node, m_pMemory, m_duplicateKeyPolicy);
       m_keys.pop_back();
     } else {
       key.second = true;
