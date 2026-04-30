@@ -16,6 +16,7 @@
 #include "yaml-cpp/dll.h"
 #include "yaml-cpp/node/detail/node_iterator.h"
 #include "yaml-cpp/node/iterator.h"
+#include "yaml-cpp/node/parse.h"
 #include "yaml-cpp/node/ptr.h"
 #include "yaml-cpp/node/type.h"
 
@@ -61,7 +62,11 @@ class YAML_CPP_API node_data {
 
   // sequence
   void push_back(node& node, const shared_memory_holder& pMemory);
-  void insert(node& key, node& value, const shared_memory_holder& pMemory);
+  void insert(
+      node& key,
+      node& value,
+      const shared_memory_holder& pMemory,
+      DuplicateKeyPolicy duplicateKeyPolicy = DuplicateKeyPolicy::Throw);
 
   // indexing
   template <typename Key>
@@ -90,7 +95,11 @@ class YAML_CPP_API node_data {
   void reset_sequence();
   void reset_map();
 
-  void insert_map_pair(node& key, node& value, bool force = false);
+  void insert_map_pair(
+      node& key,
+      node& value,
+      bool force = false,
+      DuplicateKeyPolicy duplicateKeyPolicy = DuplicateKeyPolicy::Throw);
   void convert_to_map(const shared_memory_holder& pMemory);
   void convert_sequence_to_map(const shared_memory_holder& pMemory);
 
