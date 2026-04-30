@@ -12,6 +12,7 @@
 #include "yaml-cpp/anchor.h"
 #include "yaml-cpp/emitterstyle.h"
 #include "yaml-cpp/eventhandler.h"
+#include "yaml-cpp/node/parse.h"
 #include "yaml-cpp/node/ptr.h"
 
 namespace YAML {
@@ -26,7 +27,8 @@ class Node;
 
 class NodeBuilder : public EventHandler {
  public:
-  NodeBuilder();
+  explicit NodeBuilder(DuplicateKeyPolicy duplicateKeyPolicy =
+                           DuplicateKeyPolicy::KeepLast);
   NodeBuilder(const NodeBuilder&) = delete;
   NodeBuilder(NodeBuilder&&) = delete;
   NodeBuilder& operator=(const NodeBuilder&) = delete;
@@ -68,6 +70,7 @@ class NodeBuilder : public EventHandler {
   using PushedKey = std::pair<detail::node*, bool>;
   std::vector<PushedKey> m_keys;
   std::size_t m_mapDepth;
+  DuplicateKeyPolicy m_duplicateKeyPolicy;
 };
 }  // namespace YAML
 
